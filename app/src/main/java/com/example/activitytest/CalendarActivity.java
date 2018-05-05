@@ -1,50 +1,49 @@
 package com.example.activitytest;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.widget.DatePicker;
 import android.widget.Toast;
 
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+
+import static android.app.PendingIntent.getActivity;
 
 public class CalendarActivity extends AppCompatActivity {
 
-    private DatePicker datePicker;
-    private int        year;
-    private int        month;//月份是从0开始算的.
-    private int        day;
+    private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
+    private View view;
+    MaterialCalendarView calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);去掉标题栏
-        datePicker = (DatePicker) findViewById(R.id.datepicker);
-
-        initData();
+        calendar=(MaterialCalendarView) findViewById(R.id.calendar);
+        initdata();
     }
-    public void initData(){
-        Calendar calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
+    private void initdata()
+    {
+        calendar.setShowOtherDates(MaterialCalendarView.SHOW_ALL);
+        calendar.setSelectedDate(new Date());
+        calendar.setSelectionColor(getResources().getColor(R.color.colorBase));
+        calendar.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Toast.makeText(CalendarActivity.this, year + "年" + (monthOfYear + 1) + "月" + dayOfMonth + "日", Toast.LENGTH_SHORT).show();
-
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                CalendarDay selected_date = calendar.getSelectedDate();
+                Toast.makeText(CalendarActivity.this, FORMATTER.format(selected_date.getDate()), Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-    }
-    public void cancel(View v){
-        Toast.makeText(this, "取消,按照工单给的补抄日期", Toast.LENGTH_SHORT).show();
-    }
-    public void confirm(View v){
-        Toast.makeText(this, "确认", Toast.LENGTH_SHORT).show();
-    }
 }
 
