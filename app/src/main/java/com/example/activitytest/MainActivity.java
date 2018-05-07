@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Button calendar = (Button) findViewById(R.id.calendar);
         Button diary_edit= (Button) findViewById(R.id.diary_edit);
+        Button bottle_edit= (Button) findViewById(R.id.bottle_edit);
 
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,6 +30,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent_diary_w = new Intent(MainActivity.this, DiaryWriteActivity.class);
                 startActivity(intent_diary_w);
+            }
+        });
+        bottle_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_bottle_w = new Intent(MainActivity.this, BottleWriteActivity.class);
+                startActivity(intent_bottle_w);
             }
         });
     }

@@ -18,4 +18,11 @@
         android:text="Diary_edit"
         />
 
+    <Button
+        android:id="@+id/bottle_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bottle_edit"
+        />
+
 </LinearLayout>
