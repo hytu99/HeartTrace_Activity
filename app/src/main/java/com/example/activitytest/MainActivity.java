@@ -15,11 +15,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button calendar = (Button) findViewById(R.id.calendar);
+        Button diary_edit= (Button) findViewById(R.id.diary_edit);
+
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
-                startActivity(intent);
+                Intent intent_calendar = new Intent(MainActivity.this, CalendarActivity.class);
+                startActivity(intent_calendar);
+            }
+        });
+        diary_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_diary_w = new Intent(MainActivity.this, DiaryWriteActivity.class);
+                startActivity(intent_diary_w);
             }
         });
     }

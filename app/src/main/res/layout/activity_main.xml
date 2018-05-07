@@ -11,4 +11,11 @@
         android:text="Calendar"
         />
 
+    <Button
+        android:id="@+id/diary_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Diary_edit"
+        />
+
 </LinearLayout>
