@@ -19,7 +19,7 @@ public class BottleWriteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diary_write);
+        setContentView(R.layout.activity_bottle_write);
         confirm = (ImageButton) findViewById(R.id.confirm);
         source = (ImageButton) findViewById(R.id.source);
         setting = (ImageButton) findViewById(R.id.setting);
