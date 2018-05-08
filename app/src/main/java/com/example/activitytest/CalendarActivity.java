@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static android.app.PendingIntent.getActivity;
 
 public class CalendarActivity extends AppCompatActivity implements View.OnClickListener{
 

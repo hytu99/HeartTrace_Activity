@@ -11,7 +11,7 @@ import com.prolificinteractive.materialcalendarview.CalendarMode;
 
 import java.util.Date;
 
-public class DiaryWriteActivity extends AppCompatActivity {
+public class BottleWriteActivity extends AppCompatActivity {
     private ImageButton confirm;
     private ImageButton source;
     private ImageButton setting;
@@ -51,7 +51,3 @@ public class DiaryWriteActivity extends AppCompatActivity {
     }
 
 }
-
-
-
-

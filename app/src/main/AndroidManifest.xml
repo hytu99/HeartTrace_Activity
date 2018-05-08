@@ -21,10 +21,13 @@
         </activity>
         <activity
             android:name=".CalendarActivity"
-            android:label="Calendar"></activity>
+            android:label="Calendar" />
         <activity
             android:name=".DiaryWriteActivity"
-            android:label="Diary"></activity>
+            android:label="Diary" />
+        <activity
+            android:name=".BottleWriteActivity"
+            android:label="Bottle" />
     </application>
 
 </manifest>
