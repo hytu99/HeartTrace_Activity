@@ -1,81 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:id="@+id/diaryWriteLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="vertical">
+    <include layout="@layout/diary_write_content"/>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/editLayout"
-            android:layout_width="match_parent"
-            android:layout_height="420dp"
-            android:layout_marginBottom="10dp"
-            app:hintTextAppearance="@style/FloatingStyle">
+    <include layout="@layout/content_bottom_sheet" />
 
-            <EditText
-                android:id="@+id/diaryWrite"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                android:hint="Write your diary here!"
-                android:inputType="textMultiLine"
-                android:background="@null"/>
+    <include layout="@layout/setting_bottom_sheet"/>
 
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="0dp"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/setting"
-            android:src="@drawable/setting"
-            android:layout_alignParentLeft="true"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="#ffffff"/>
-
-        <ImageButton
-            android:id="@+id/source"
-            android:src="@drawable/source"
-            android:layout_centerInParent="true"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="#ffffff"/>
-
-        <ImageButton
-            android:id="@+id/confirm"
-            android:src="@drawable/confirm"
-            android:layout_alignParentRight="true"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="#ffffff"/>
-
-    </RelativeLayout>
-
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

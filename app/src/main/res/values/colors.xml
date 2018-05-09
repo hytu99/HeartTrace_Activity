@@ -3,5 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorBase">#836FFF</color>
+    <color name="colorBase">#836fff</color>
+    <color name="colorBackground">#33CCCC</color>
+    <color name="colorBlack">#000000</color>
+    <color name="white">#FFFFFF</color> <!--白色 -->
+    <color name="ivory">#FFFFF0</color> <!--象牙色 -->
+    <color name="moccasin">#FFE4B5</color> <!--鹿皮色 -->
+    <color name="burly_wood">#DEB887</color> <!--实木色 -->
+    <color name="dark_gray">#A9A9A9</color> <!--暗灰色 -->
+    <color name="dark_turquoise">#00CED1</color> <!--暗宝石绿 -->
 </resources>
