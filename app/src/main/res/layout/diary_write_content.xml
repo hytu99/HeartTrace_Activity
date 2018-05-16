@@ -21,17 +21,17 @@
         <android.support.design.widget.TextInputLayout
             android:id="@+id/editLayout"
             android:layout_width="match_parent"
-            android:layout_height="420dp"
-            android:layout_marginBottom="10dp">
+            android:layout_height="410dp"
+            android:layout_marginBottom="0dp">
 
             <EditText
                 android:id="@+id/diaryWrite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
-                android:textSize="20sp"
                 android:inputType="textMultiLine"
-                android:background="@null"/>
+                android:background="@null"
+                android:textCursorDrawable="@null"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -52,7 +52,7 @@
             android:layout_alignParentLeft="true"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="#ffffff"/>
+            android:background="@android:color/transparent"/>
 
         <ImageButton
             android:id="@+id/source"
@@ -60,7 +60,7 @@
             android:layout_centerInParent="true"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="#ffffff"/>
+            android:background="@android:color/transparent"/>
 
         <ImageButton
             android:id="@+id/confirm"
@@ -68,7 +68,7 @@
             android:layout_alignParentRight="true"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="#ffffff"/>
+            android:background="@android:color/transparent"/>
 
     </RelativeLayout>
 

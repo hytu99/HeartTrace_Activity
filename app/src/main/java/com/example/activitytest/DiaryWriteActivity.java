@@ -2,6 +2,7 @@ package com.example.activitytest;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,7 +10,9 @@ import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.DocumentsContract;
@@ -20,7 +23,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,10 +42,10 @@ import com.example.activitytest.R;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
+import java.io.FileNotFoundException;
+
 
 public class DiaryWriteActivity extends AppCompatActivity implements View.OnClickListener {
-
-    public static final int TAKE_PHOTO = 1;
 
     public static final int CHOOSE_PHOTO = 2;
 
@@ -54,12 +61,12 @@ public class DiaryWriteActivity extends AppCompatActivity implements View.OnClic
     private ImageButton setting;
     private android.support.design.widget.CoordinatorLayout layout;
     private BottomSheetBehavior settingBottomSheetBehavior;
-    private Button set_theme1;
-    private Button set_theme2;
-    private Button set_theme3;
-    private Button set_theme4;
-    private Button set_theme5;
-    private Button set_theme6;
+    private ImageButton set_theme1;
+    private ImageButton set_theme2;
+    private ImageButton set_theme3;
+    private ImageButton set_theme4;
+    private ImageButton set_theme5;
+    private ImageButton set_theme6;
     private DiscreteSeekBar set_size;
     private Button set_font1;
     private Button set_font2;
@@ -81,7 +88,7 @@ public class DiaryWriteActivity extends AppCompatActivity implements View.OnClic
         set_size.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
             @Override
             public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
-                diary.setTextSize(6*set_size.getProgress());
+                diary.setTextSize(4*set_size.getProgress());
             }
 
             @Override
@@ -106,12 +113,12 @@ public class DiaryWriteActivity extends AppCompatActivity implements View.OnClic
         setting = (ImageButton) findViewById(R.id.setting);
         layout = (android.support.design.widget.CoordinatorLayout) findViewById(R.id.diaryWriteLayout);
         settingBottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.settingBottomSheetLayout));
-        set_theme1 = (Button) findViewById(R.id.theme1);
-        set_theme2 = (Button) findViewById(R.id.theme2);
-        set_theme3 = (Button) findViewById(R.id.theme3);
-        set_theme4 = (Button) findViewById(R.id.theme4);
-        set_theme5 = (Button) findViewById(R.id.theme5);
-        set_theme6 = (Button) findViewById(R.id.theme6);
+        set_theme1 = (ImageButton) findViewById(R.id.theme1);
+        set_theme2 = (ImageButton) findViewById(R.id.theme2);
+        set_theme3 = (ImageButton) findViewById(R.id.theme3);
+        set_theme4 = (ImageButton) findViewById(R.id.theme4);
+        set_theme5 = (ImageButton) findViewById(R.id.theme5);
+        set_theme6 = (ImageButton) findViewById(R.id.theme6);
         set_size = (DiscreteSeekBar) findViewById(R.id.set_size);
         set_font1 = (Button) findViewById(R.id.font1);
         set_font2 = (Button) findViewById(R.id.font2);
@@ -139,20 +146,18 @@ public class DiaryWriteActivity extends AppCompatActivity implements View.OnClic
         set_theme5.setOnClickListener(this);
         set_theme6.setOnClickListener(this);
         editor.setOnClickListener(this);
-
     }
 
     public void init()
     {
         AssetManager mgr=getAssets();
-        Typeface tf1=Typeface.createFromAsset(mgr, "fonts/font1.ttf");
-        font_text1.setTypeface(tf1);
+        font_text1.setTypeface(Typeface.SERIF);
         Typeface tf2=Typeface.createFromAsset(mgr, "fonts/font2.ttf");
         font_text2.setTypeface(tf2);
         Typeface tf3=Typeface.createFromAsset(mgr, "fonts/font3.otf");
         font_text3.setTypeface(tf3);
-        diary.setTypeface(tf1);
-        diary.setTextSize(30);
+        diary.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        diary.setTextSize(20);
     }
 
     public void onClick(View view) {
@@ -190,68 +195,46 @@ public class DiaryWriteActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.theme1:
                 //diary.setTextColor(getResources().getColor(R.color.colorBase));
-                layout.setBackgroundColor(getResources().getColor(R.color.mediumpurple));
-                confirm.setBackgroundColor(getResources().getColor(R.color.mediumpurple));
-                get_source.setBackgroundColor(getResources().getColor(R.color.mediumpurple));
-                setting.setBackgroundColor(getResources().getColor(R.color.mediumpurple));
+                layout.setBackgroundResource(R.drawable.background1);
                 break;
             case R.id.theme2:
                 //diary.setTextColor(getResources().getColor(R.color.colorBase));
-                layout.setBackgroundColor(getResources().getColor(R.color.lime));
-                confirm.setBackgroundColor(getResources().getColor(R.color.lime));
-                get_source.setBackgroundColor(getResources().getColor(R.color.lime));
-                setting.setBackgroundColor(getResources().getColor(R.color.lime));
+                layout.setBackgroundResource(R.drawable.background2);
                 break;
             case R.id.theme3:
                 //diary.setTextColor(getResources().getColor(R.color.colorBase));
-                layout.setBackgroundColor(getResources().getColor(R.color.ivory));
-                confirm.setBackgroundColor(getResources().getColor(R.color.ivory));
-                get_source.setBackgroundColor(getResources().getColor(R.color.ivory));
-                setting.setBackgroundColor(getResources().getColor(R.color.ivory));
+                layout.setBackgroundResource(R.drawable.background3);
                 break;
             case R.id.theme4:
                 //diary.setTextColor(getResources().getColor(R.color.colorBase));
-                layout.setBackgroundColor(getResources().getColor(R.color.goldenrod));
-                confirm.setBackgroundColor(getResources().getColor(R.color.goldenrod));
-                get_source.setBackgroundColor(getResources().getColor(R.color.goldenrod));
-                setting.setBackgroundColor(getResources().getColor(R.color.goldenrod));
+                layout.setBackgroundResource(R.drawable.background4);
                 break;
             case R.id.theme5:
                 //diary.setTextColor(getResources().getColor(R.color.colorBase));
-                layout.setBackgroundColor(getResources().getColor(R.color.lightsalmon));
-                confirm.setBackgroundColor(getResources().getColor(R.color.lightsalmon));
-                get_source.setBackgroundColor(getResources().getColor(R.color.lightsalmon));
-                setting.setBackgroundColor(getResources().getColor(R.color.lightsalmon));
+                layout.setBackgroundResource(R.drawable.background5);
                 break;
             case R.id.theme6:
                 //diary.setTextColor(getResources().getColor(R.color.colorBase));
-                layout.setBackgroundColor(getResources().getColor(R.color.colorBase));
-                confirm.setBackgroundColor(getResources().getColor(R.color.colorBase));
-                get_source.setBackgroundColor(getResources().getColor(R.color.colorBase));
-                setting.setBackgroundColor(getResources().getColor(R.color.colorBase));
+                layout.setBackgroundResource(R.drawable.background6);
                 break;
         }
     }
 
-        private void openAlbum(){
-            Intent intent = new Intent("android.intent.action.GET_CONTENT");
-            intent.setType("image/*");
-            startActivityForResult(intent, CHOOSE_PHOTO); // 打开相册
-        }
+    private void openAlbum(){
+        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        intent.setType("image/*");
+        startActivityForResult(intent, CHOOSE_PHOTO); // 打开相册
+    }
 
-        @Override
-        public void onRequestPermissionsResult(int requestCode, String[]permissions, int[] grantResults) {
-            switch (requestCode) {
-                case 1:
-                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        openAlbum();
-                    } else {
-                        Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                default:
-            }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[]permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 1:
+                openAlbum();
+                break;
+            default:
         }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -277,26 +260,39 @@ public class DiaryWriteActivity extends AppCompatActivity implements View.OnClic
     private void handleImageOnKitKat(Intent data) {
         String imagePath = null;
         Uri uri = data.getData();
-        Log.d("TAG", "handleImageOnKitKat: uri is " + uri);
-        if (DocumentsContract.isDocumentUri(this, uri)) {
-            // 如果是document类型的Uri，则通过document id处理
-            String docId = DocumentsContract.getDocumentId(uri);
-            if("com.android.providers.media.documents".equals(uri.getAuthority())) {
-                String id = docId.split(":")[1]; // 解析出数字格式的id
-                String selection = MediaStore.Images.Media._ID + "=" + id;
-                imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
-            } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
-                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
-                imagePath = getImagePath(contentUri, null);
-            }
-        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
-            // 如果是content类型的Uri，则使用普通方式处理
-            imagePath = getImagePath(uri, null);
-        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            // 如果是file类型的Uri，直接获取图片路径即可
-            imagePath = uri.getPath();
+        ContentResolver cr = DiaryWriteActivity.this.getContentResolver();
+        Bitmap bitmap = null;
+        Bundle extras = null;
+        try {
+            //将对象存入Bitmap中
+            bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        displayImage(imagePath); // 根据图片路径显示图片
+        int imgWidth = bitmap.getWidth();
+        int imgHeight = bitmap.getHeight();
+        double partion = imgWidth*1.0/imgHeight;
+        double sqrtLength = Math.sqrt(partion*partion + 1);
+        //新的缩略图大小
+        double newImgW = 1024*(partion / sqrtLength);
+        double newImgH = 1024*(1 / sqrtLength);
+        float scaleW = (float) (newImgW/imgWidth);
+        float scaleH = (float) (newImgH/imgHeight);
+
+        Matrix mx = new Matrix();
+        //对原图片进行缩放
+        mx.postScale(scaleW, scaleH);
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, imgWidth, imgHeight, mx, true);
+        final ImageSpan imageSpan = new ImageSpan(this,bitmap);
+        SpannableString spannableString = new SpannableString("test");
+        spannableString.setSpan(imageSpan, 0, spannableString.length(), SpannableString.SPAN_MARK_MARK);
+        //光标移到下一行
+        Editable editable = diary.getEditableText();
+        int selectionIndex = diary.getSelectionStart();
+        spannableString.getSpans(0, spannableString.length(), ImageSpan.class);
+        //将图片添加进EditText中
+        editable.insert(selectionIndex, spannableString);
     }
 
     private void handleImageBeforeKitKat(Intent data) {

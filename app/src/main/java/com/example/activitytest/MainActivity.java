@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.activitytest.R;
+
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,21 +23,21 @@ public class MainActivity extends AppCompatActivity {
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_calendar = new Intent(MainActivity.this, CalendarActivity.class);
+                Intent intent_calendar = new Intent(MainActivity.this, com.example.activitytest.CalendarActivity.class);
                 startActivity(intent_calendar);
             }
         });
         diary_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_diary_w = new Intent(MainActivity.this, DiaryWriteActivity.class);
+                Intent intent_diary_w = new Intent(MainActivity.this, com.example.activitytest.DiaryWriteActivity.class);
                 startActivity(intent_diary_w);
             }
         });
         bottle_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_bottle_w = new Intent(MainActivity.this, BottleWriteActivity.class);
+                Intent intent_bottle_w = new Intent(MainActivity.this, com.example.activitytest.BottleWriteActivity.class);
                 startActivity(intent_bottle_w);
             }
         });
