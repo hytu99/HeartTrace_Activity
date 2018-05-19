@@ -54,6 +54,7 @@
             app:mcv_dateTextAppearance="@style/TextAppearance.AppCompat.Small"
             app:mcv_weekDayTextAppearance="@style/TextAppearance.AppCompat.Small"
             app:mcv_showOtherDates="other_months"
+            android:background="@color/seashell"
             app:layout_behavior="@string/calendar_behavior"/>
 
         <android.support.v7.widget.RecyclerView
@@ -61,6 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="110dp"
+            android:background="@color/seashell"
             app:layout_behavior="@string/calendar_scrolling_behavior"/>
 
     </android.support.design.widget.CoordinatorLayout>

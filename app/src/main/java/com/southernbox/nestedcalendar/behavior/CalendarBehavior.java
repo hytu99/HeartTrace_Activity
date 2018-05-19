@@ -78,7 +78,7 @@ public class CalendarBehavior extends ViewOffsetBehavior<MaterialCalendarView> {
             if (behavior instanceof com.southernbox.nestedcalendar.behavior.CalendarScrollBehavior) {
                 final com.southernbox.nestedcalendar.behavior.CalendarScrollBehavior listBehavior = (com.southernbox.nestedcalendar.behavior.CalendarScrollBehavior) behavior;
                 int listOffset = MathUtils.clamp(
-                        listBehavior.getTopAndBottomOffset() - dy, -listMaxOffset, 0);
+                        listBehavior.getTopAndBottomOffset() - dy*2, -listMaxOffset, 0);
                 listBehavior.setTopAndBottomOffset(listOffset);
                 if (listOffset > -listMaxOffset && listOffset < 0) {
                     consumed[1] = dy;
