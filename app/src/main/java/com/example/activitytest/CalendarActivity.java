@@ -1,13 +1,10 @@
 package com.example.activitytest;
 
-import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,7 +14,6 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
-import com.example.activitytest.R;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -30,8 +26,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static android.app.PendingIntent.getActivity;
-
 
 public class CalendarActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -39,7 +33,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     private View view;
     boolean month_mode=true;
 
-    private MaterialCalendarView calendar;
+    private MaterialCalendarView calendarView;
     private ImageView calendar_picture;
     private RecyclerView recyclerView;
     public List<DiaryCard> diaryCardList = new ArrayList<>();
@@ -48,6 +42,8 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     private ImageButton selectDate;
     private boolean calendar_mode;
     private LinearLayoutManager layoutManager;
+    private int dayOfWeek;
+    private int dayOfMonth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +52,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         calendar_mode=true;
 
         calendar_picture = (ImageView) findViewById(R.id.calendar_picture);
-        calendar = (MaterialCalendarView) findViewById(R.id.calendar);
+        calendarView = (MaterialCalendarView) findViewById(R.id.calendar);
         toolbarTitle = (TextView) findViewById(R.id.toolbarTitle);
         selectDate = (ImageButton) findViewById(R.id.selectDate);
 
@@ -66,13 +62,10 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         initdata();
 
         initDiaryCard();
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new com.example.activitytest.DiaryCardAdapter(diaryCardList);
-        recyclerView.setAdapter(adapter);
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        initRecyclerView();
+
+/*      recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             int mScrollThreshold;
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -89,25 +82,36 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             public void setScrollThreshold(int scrollThreshold) {
                 mScrollThreshold = scrollThreshold;
             }
-        });
+        });*/
 
     }
+
     private void initdata()
     {
-        calendar.setTopbarVisible(false);
-        calendar.setShowOtherDates(MaterialCalendarView.SHOW_ALL);
-        calendar.state().edit().setFirstDayOfWeek(Calendar.MONDAY).commit();
-        calendar.setSelectedDate(new Date());
-        calendar.setSelectionColor(getResources().getColor(R.color.colorBase));
-        calendar.setOnDateChangedListener(new OnDateSelectedListener() {
+        calendarView.setTopbarVisible(false);
+        calendarView.setShowOtherDates(MaterialCalendarView.SHOW_ALL);
+        calendarView.state().edit().setFirstDayOfWeek(Calendar.MONDAY).commit();
+        calendarView.setSelectedDate(new Date());
+        calendarView.setSelectionColor(getResources().getColor(R.color.colorBase));
+        calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                CalendarDay selected_date = calendar.getSelectedDate();
+                CalendarDay selected_date = calendarView.getSelectedDate();
                 toolbarTitle.setText(FORMATTER.format(selected_date.getDate()));
                 Toast.makeText(CalendarActivity.this, FORMATTER.format(selected_date.getDate()), Toast.LENGTH_SHORT).show();
             }
         });
         toolbarTitle.setText(FORMATTER.format(new Date()));
+
+
+    }
+
+    private void initRecyclerView() {
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new com.example.activitytest.DiaryCardAdapter(diaryCardList);
+        recyclerView.setAdapter(adapter);
     }
 
     private void initDiaryCard(){
@@ -131,8 +135,8 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.calendar_picture:
-                calendar.setSelectedDate(new Date());
-                calendar.setCurrentDate(new Date());
+                calendarView.setSelectedDate(new Date());
+                calendarView.setCurrentDate(new Date());
                 toolbarTitle.setText(FORMATTER.format(new Date()));
                 break;
             case R.id.selectDate:
@@ -140,8 +144,8 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                 TimePickerView pvTime = new TimePickerBuilder(CalendarActivity.this, new OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(Date date, View v) {
-                        calendar.setSelectedDate(date);
-                        calendar.setCurrentDate(date);
+                        calendarView.setSelectedDate(date);
+                        calendarView.setCurrentDate(date);
                         toolbarTitle.setText(FORMATTER.format(date));
                     }
                 })
@@ -192,19 +196,21 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     private void onScrollDown() {     //下滑时要执行的代码
         //Toast.makeText(CalendarActivity.this, "down", Toast.LENGTH_SHORT).show();
         if(calendar_mode==false && isGetTop()==true) {
-            calendar.state().edit().setCalendarDisplayMode(CalendarMode.MONTHS).commit();
+            calendarView.state().edit().setCalendarDisplayMode(CalendarMode.MONTHS).commit();
             calendar_mode=true;
-        }
+       }
     }
 
     private void onScrollUp() {       //上滑时要执行的代码
         //Toast.makeText(CalendarActivity.this, "up", Toast.LENGTH_SHORT).show();
         if(calendar_mode==true) {
-            calendar.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS).commit();
+            calendarView.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS).commit();
             calendar_mode=false;
         }
 
     }
+
+
 
 
 
