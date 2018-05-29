@@ -1,14 +1,10 @@
 package com.example.activitytest;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-
-import com.example.activitytest.R;
-
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         Button calendar = (Button) findViewById(R.id.calendar);
         Button diary_edit= (Button) findViewById(R.id.diary_edit);
         Button bottle_edit= (Button) findViewById(R.id.bottle_edit);
+        Button statistics_chart= (Button) findViewById(R.id.statistics_chart);
 
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent_bottle_w = new Intent(MainActivity.this, com.example.activitytest.BottleWriteActivity.class);
                 startActivity(intent_bottle_w);
+            }
+        });
+        statistics_chart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_chart = new Intent(MainActivity.this, com.example.activitytest.StatisticsActivity.class);
+                startActivity(intent_chart);
             }
         });
     }

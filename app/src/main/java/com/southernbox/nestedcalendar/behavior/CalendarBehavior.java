@@ -80,6 +80,7 @@ public class CalendarBehavior extends ViewOffsetBehavior<MaterialCalendarView> {
                 int listOffset = MathUtils.clamp(
                         listBehavior.getTopAndBottomOffset() - dy*2, -listMaxOffset, 0);
                 listBehavior.setTopAndBottomOffset(listOffset);
+                if (listOffset <= -listMaxOffset)  setWeekMode(child);
                 if (listOffset > -listMaxOffset && listOffset < 0) {
                     consumed[1] = dy;
                 }

@@ -90,7 +90,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     {
         calendarView.setTopbarVisible(false);
         calendarView.setShowOtherDates(MaterialCalendarView.SHOW_ALL);
-        calendarView.state().edit().setFirstDayOfWeek(Calendar.MONDAY).commit();
+        calendarView.state().edit().setFirstDayOfWeek(Calendar.SUNDAY).commit();
         calendarView.setSelectedDate(new Date());
         calendarView.setSelectionColor(getResources().getColor(R.color.colorBase));
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {

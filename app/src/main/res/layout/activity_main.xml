@@ -25,4 +25,11 @@
         android:text="Bottle_edit"
         />
 
+    <Button
+        android:id="@+id/statistics_chart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Statistics_chart"
+        />
+
 </LinearLayout>

@@ -35,6 +35,11 @@
             android:name=".TicketEditActivity"
             android:label="Ticket"
             android:theme="@style/AppTheme"/>
-    </application>
+        <activity
+            android:name=".StatisticsActivity"
+            android:label="Statistics"
+            android:theme="@style/AppTheme" />
+
+</application>
 
 </manifest>
