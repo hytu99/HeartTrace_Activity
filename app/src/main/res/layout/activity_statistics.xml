@@ -2,7 +2,8 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/statistics_chart">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,6 +15,31 @@
             android:layout_width="match_parent"
             android:layout_height="380dp"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:layout_weight="0.9"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/help"
+                    android:background="@drawable/help"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -23,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_centerInParent="true"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginTop="8dp">
 
                 <Button
