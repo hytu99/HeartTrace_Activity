@@ -132,7 +132,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         diaryCardList.add(0,diaryCard6);
     }
 
-    public void onClick(View view) {
+    public void onClick(View view){
         switch(view.getId()){
             case R.id.calendar_picture:
                 calendarView.setSelectedDate(new Date());
